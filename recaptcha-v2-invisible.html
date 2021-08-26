@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCaptcha v2</title>
+    <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+    <form action="?" method="POST">
+        <div>
+            Name: (required) <input id="field" name="field" />
+        </div>
+
+        <div id='recaptcha' class="g-recaptcha" data-sitekey="6Lc2y3caAAAAAJsjvipiWaspD5294F2LyCqqF2dG"
+            data-callback="onSubmit" data-size="invisible"></div>
+
+        <div><input id="submit" type="submit" value="Submit"></div>
+    </form>
+
+    <script>
+
+        function validate(event) {
+            event.preventDefault();
+            if (!document.getElementById('field').value) {
+                alert('You must add text to the required field');
+            } else {
+                grecaptcha.execute();
+            }
+        }
+
+        function onSubmit(token) {
+            console.log(token);
+            // do more ...
+            alert('thanks ' + document.getElementById('field').value);
+        }
+
+        function onload() {
+            var element = document.getElementById('submit');
+            element.onclick = validate;
+        }
+
+        (function () {
+            onload();
+        })();
+    </script>
+</body>
+
+</html>

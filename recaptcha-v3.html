@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCaptcha v3</title>
+    <script src="https://www.recaptcha.net/recaptcha/api.js?render=6LcFwHcaAAAAAHCnoyXSy_w-xCaOsjkfvuqSl6J_"
+        defer></script>
+</head>
+
+<body>
+
+    <form>
+        <div>
+            Name: (required) <input id="field" name="field" />
+        </div>
+        <!-- <button id="submit" class="g-recaptcha" data-sitekey="6LcFwHcaAAAAAHCnoyXSy_w-xCaOsjkfvuqSl6J_"
+            data-callback='onSubmit'>Submit</button> -->
+        <button id="submit" class="g-recaptcha">Submit</button>
+    </form>
+
+    <script>
+        function validate(event) {
+            event.preventDefault();
+            if (!document.getElementById('field').value) {
+                alert('You must add text to the required field');
+            } else {
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6LcFwHcaAAAAAHCnoyXSy_w-xCaOsjkfvuqSl6J_', { action: 'submit' }).then(function (token) {
+                        // Add your logic to submit to your backend server here.
+                        onSubmit(token);
+                    });
+                });
+            }
+        }
+
+        function onSubmit(token) {
+            console.log(token);
+            // do more ...
+            alert('thanks ' + document.getElementById('field').value);
+        }
+
+        function onload() {
+            var element = document.getElementById('submit');
+            element.onclick = validate;
+        }
+
+        (function () {
+            onload();
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCaptcha v2 - checkbox</title>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+</head>
+
+<body>
+    <form action="?" method="POST">
+        <div>
+            Name: (required) <input id="field" name="field" />
+        </div>
+
+        <div id="example"></div>
+        <!-- <div class="g-recaptcha" data-sitekey="6Lej8XcaAAAAAOPHJC37FLTRnIITtjiF0CeyJUFT"></div> -->
+
+        <div><input id="submit" type="submit" value="Submit"></div>
+    </form>
+
+    <script>
+        const verifyCallback = function (response) {
+            document.getElementById('submit').setAttribute('data-res', response);
+        };
+        function onloadCallback() {
+            console.log("grecaptcha is ready!");
+            grecaptcha.render('example', {
+                'sitekey': '6Lej8XcaAAAAAOPHJC37FLTRnIITtjiF0CeyJUFT',
+                //'theme': 'dark',
+                callback: verifyCallback,
+            });
+        };
+
+        function validate(event) {
+            event.preventDefault();
+            if (!document.getElementById('field').value) {
+                alert('You must add text to the required field');
+            } else {
+                const token = document.getElementById('submit').getAttribute('data-res')
+                if (token) {
+                    onSubmit(token);
+                }
+            }
+        }
+
+        function onSubmit(token) {
+            console.log(token);
+            // do more ...
+            alert('thanks ' + document.getElementById('field').value);
+        }
+
+        function onload() {
+            var element = document.getElementById('submit');
+            element.onclick = validate;
+        }
+
+        (function () {
+            onload();
+        })();
+    </script>
+</body>
+
+</html>

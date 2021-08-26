@@ -1,0 +1,21 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container>div:first-child {
+    flex: 1;
+    padding: 10px;
+}
+
+.container>div:nth-child(2) {
+    height: 50px;
+    padding: 10px;
+    align-self: center;
+}

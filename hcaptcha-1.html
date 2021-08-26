@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hCaptcha method 1</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <!-- method 1 -->
+            <form action="" method="POST">
+                <div>
+                    Name: (required) <input id="field" name="field" />
+                </div>
+
+                <div class="h-captcha" data-sitekey="72ea13f4-170d-49b7-bdfb-6c7922c7792a" data-size="compact"
+                    data-callback="onSubmit">
+                </div>
+                <div>
+                    <button id="submit">submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            This site is protected by hCaptcha and its
+            <a href="https://hcaptcha.com/privacy">Privacy Policy</a> and
+            <a href="https://hcaptcha.com/terms">Terms of Service</a> apply.
+        </div>
+    </div>
+
+    <script>
+        function validate(event) {
+            event.preventDefault();
+            if (!document.getElementById('field').value) {
+                alert('You must add text to the required field');
+            } else {
+                hcaptcha.execute();
+            }
+        }
+
+        function onSubmit(token) {
+            console.log('token:', token);
+            // do more ...
+            alert('thanks ' + document.getElementById('field').value);
+        }
+
+        function onload() {
+            var element = document.getElementById('submit');
+            element.addEventListener('click', validate);
+        }
+
+        (function () {
+            onload();
+        })();
+    </script>
+</body>
+
+</html>
